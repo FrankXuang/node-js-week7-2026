@@ -22,7 +22,7 @@ erDiagram
         int coach_id FK
         int skill_id FK
     }
-    courses["courses（2000）"] {
+    courses["courses（15萬）"] {
         int id PK
         int user_id FK "教練"
         int skill_id FK

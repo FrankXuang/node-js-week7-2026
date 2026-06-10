@@ -57,14 +57,14 @@ npm run measure 4                  # 🟢 收工換下一張
 ## 🧪 驗收與繳交
 
 ```bash
-npm test    # 九條驗收，全綠才算結案
+npm test    # 八條驗收，全綠才算結案
 ```
 
 push 後 Actions 跑同一套驗收（**通過標準：全綠**），結果總表在 run 的 Summary 頁。
 
 **繳交**：repo 網址（Actions 全綠）+ 一張 measure 全綠「準時下班」的截圖。
 
-> 📏 考卷規則：`scripts/`、`test/`、`.github/` 不可修改；你動的只有 `optimize.sql` 和 `queries/06-rewrite.sql`。繳交後會用原版抽查重跑，改考卷以 0 分計。
+> 📏 考卷規則：`scripts/`、`test/`、`.github/`、`package.json`、`package-lock.json`、`docker-compose.yml`、`.env.example` 不可修改；你動的只有 `optimize.sql` 和 `queries/06-rewrite.sql`。繳交後會用原版抽查重跑，改考卷以 0 分計。
 
 ## ❓ FAQ
 

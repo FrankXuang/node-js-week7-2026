@@ -16,8 +16,8 @@ if (!fs.existsSync(file)) {
   md = [
     `## 🛑 ${title}：測試沒有執行`,
     '',
-    '通常是 server 沒起來（公約①～④哪裡破了）。往上看「啟動你的後端」步驟印出的 server log，',
-    '最常見原因：`npm start` 沒換成自己的啟動指令、沒聽 `PORT` 環境變數、資料表沒建出來。',
+    '通常是資料庫沒起來、或 optimize.sql 有 SQL 語法錯誤。',
+    '往上看「起資料庫」「套用你的處方箋」step 的錯誤訊息——打錯字的那行 SQL 會被指出來。',
     '',
   ].join('\n');
 } else {
@@ -51,7 +51,7 @@ if (!fs.existsSync(file)) {
         .join('\n');
       md += `\n<details><summary>❌ ${t.fullName || t.title}</summary>\n\n\`\`\`\n${msg}\n\`\`\`\n\n</details>\n`;
     }
-    md += '\n> 三步自救：讀上面的行為描述 → 開 Swagger 文件（localhost:8081）對照該 API 規格 → 本機 `npm run test:m{N}` 重現。\n';
+    md += '\n> 三步自救：讀上面的失敗原因 → 本機 `npm run measure` 重現 → DBeaver 跑 `EXPLAIN ANALYZE` 找病因。\n';
   }
 }
 

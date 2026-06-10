@@ -4,13 +4,13 @@
   "private": true,
   "description": "W7 效能急救室 — LiveFit 爆紅了，你是這週的值班工程師。",
   "scripts": {
-    "start": "node scripts/check-docker.js && docker compose up -d",
+    "start": "node scripts/check-docker.js && docker compose up -d && node scripts/wait-db.js",
     "stop": "docker compose stop",
     "seed": "node scripts/seed.js",
     "measure": "node scripts/measure.js",
     "optimize": "node scripts/run-sql.js optimize.sql",
     "test": "jest --runInBand",
-    "db:reset": "docker compose down -v && docker compose up -d"
+    "db:reset": "docker compose down -v && docker compose up -d && node scripts/wait-db.js"
   },
   "jest": {
     "testEnvironment": "node",

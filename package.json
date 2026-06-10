@@ -1,0 +1,26 @@
+{
+  "name": "livefit-performance-er",
+  "version": "1.0.0",
+  "private": true,
+  "description": "W7 效能急救室 — LiveFit 爆紅了，你是這週的值班工程師。",
+  "scripts": {
+    "start": "node scripts/check-docker.js && docker compose up -d",
+    "stop": "docker compose stop",
+    "seed": "node scripts/seed.js",
+    "measure": "node scripts/measure.js",
+    "optimize": "node scripts/run-sql.js optimize.sql",
+    "test": "jest --runInBand",
+    "db:reset": "docker compose down -v && docker compose up -d"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testTimeout": 120000
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "pg": "^8.13.1"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}

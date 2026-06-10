@@ -1,0 +1,44 @@
+name: 效能急救室驗收
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  triage:
+    name: 驗收六張工單
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: package.json
+
+      - name: 安裝依賴
+        run: npm install
+
+      - name: 起資料庫（學生本機同款 compose，含 random_page_cost 設定）
+        run: |
+          cp .env.example .env
+          docker compose up -d
+          for i in $(seq 1 30); do
+            docker compose exec -T postgres pg_isready -U student -d livefit > /dev/null 2>&1 && break
+            sleep 2
+          done
+
+      - name: 灌種子（與全班同一顆固定亂數）
+        run: npm run seed
+
+      - name: 套用你的處方箋（optimize.sql）
+        run: npm run optimize
+
+      - name: 跑驗收
+        run: npx jest --runInBand --json --outputFile=jest-result.json
+
+      - name: 📊 驗收結果總表
+        if: always()
+        run: node .github/scripts/summary.js "效能急救室" jest-result.json

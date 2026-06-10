@@ -1,0 +1,25 @@
+volumes:
+  pgData:
+
+services:
+  # LiveFit 正式資料庫（PostgreSQL）
+  # 你不需要懂這個檔案——它是電器，插電就用，原理 W10 會教
+  postgres:
+    image: postgres:16.4-alpine3.20
+    # random_page_cost=1.1：告訴資料庫「我們跑在 SSD 上」（工單 5 需要它才會選對計畫）
+    command: postgres -c random_page_cost=1.1
+    environment:
+      - POSTGRES_USER=student
+      - POSTGRES_PASSWORD=student666
+      - POSTGRES_DB=livefit
+      - TZ=Asia/Taipei
+      - PGTZ=Asia/Taipei
+    volumes:
+      - pgData:/var/lib/postgresql/data
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U student -d livefit"]
+      interval: 5s
+      timeout: 3s
+      retries: 10

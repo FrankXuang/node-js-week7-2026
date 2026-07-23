@@ -11,3 +11,7 @@
 -- ============================================================
 
 -- 把你的改寫版本撰寫於下方：
+SELECT count(*) AS total 
+FROM course_bookings 
+WHERE created_at >= TIMESTAMPTZ '2026-06-24 00:00:00+08'
+  AND created_at <  TIMESTAMPTZ '2026-06-25 00:00:00+08';
